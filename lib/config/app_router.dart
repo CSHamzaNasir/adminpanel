@@ -1,12 +1,14 @@
 import 'package:enuadminpannel/core/auth/screen/login_screen.dart';
 import 'package:enuadminpannel/modules/adoption_form/adoption_form_screen.dart';
 import 'package:enuadminpannel/modules/dash_board/dash_board_screen.dart';
+import 'package:enuadminpannel/modules/notification/notification_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
   static const login = "/login";
   static const dashboard = "/dashboard";
   static const adoption = "/adoption";
+  static const notification = "/notification";
 
   static final key = GlobalKey<NavigatorState>();
 
@@ -27,6 +29,9 @@ class AppRouter {
 
       case AppRouter.adoption:
         return _navigate(const AdoptionFormScreen());
+
+      case AppRouter.notification:
+        return _navigate(const NotificationScreen());
 
       default:
         return _errorRoute();

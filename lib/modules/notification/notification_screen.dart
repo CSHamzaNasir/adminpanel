@@ -1,17 +1,18 @@
-import 'package:enuadminpannel/core/widgets/pet_detail.dart';
+import 'package:enuadminpannel/core/widgets/notification_petdetail.dart';
 import 'package:flutter/material.dart';
+
 import '../../config/app_router.dart';
 import '../../core/widgets/dashboard_navbar.dart';
 import '../../core/widgets/navigation_slidebar.dart';
 
-class DashBoardScreen extends StatefulWidget {
-  const DashBoardScreen({Key? key}) : super(key: key);
+class NotificationScreen extends StatefulWidget {
+  const NotificationScreen({Key? key}) : super(key: key);
 
   @override
-  DashBoardScreenState createState() => DashBoardScreenState();
+  State<NotificationScreen> createState() => _NotificationScreenState();
 }
 
-class DashBoardScreenState extends State<DashBoardScreen> {
+class _NotificationScreenState extends State<NotificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,11 +24,13 @@ class DashBoardScreenState extends State<DashBoardScreen> {
       Expanded(
           child: SingleChildScrollView(
               child: Column(children: [
-        const DashboardNavbar(dashboardName: 'Dashboard'),
+        const DashboardNavbar(
+          dashboardName: 'Dashboard',
+        ),
         Padding(
-            padding: const EdgeInsets.only(left: 65, top: 50),
+            padding: const EdgeInsets.only(left: 65, top: 50, right: 30),
             child: Row(children: [
-              const Text('Woof woof! Tyler',
+              const Text('Notification',
                   style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.w600,
@@ -50,30 +53,9 @@ class DashBoardScreenState extends State<DashBoardScreen> {
                               fontSize: 18, fontWeight: FontWeight.w400),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8))),
-                      child: const Text('Create Adoption Form'))),
-              const SizedBox(width: 8),
-              DecoratedBox(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: const Color(0xff6B7280),
-                      width: 1.0,
-                    ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: const Padding(
-                      padding:
-                          EdgeInsets.only(left: 4, right: 9, top: 5, bottom: 4),
-                      child: SizedBox(
-                          width: 18.31,
-                          height: 21.09,
-                          child: Icon(
-                            Icons.filter_alt_outlined,
-                            color: Color(0xff6B7280),
-                          )))),
-              const SizedBox(width: 65)
+                      child: const Text('Send New Notification')))
             ])),
-        const SizedBox(height: 40),
-        const PetDetail(),
+        const NotifiicationPetDetail()
       ])))
     ]));
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../config/app_router.dart';
 import '../../constants/dashboard/drawer_list_data.dart';
 import 'drawer_list_item.dart';
 
@@ -53,6 +54,14 @@ class _NavigationSidebarState extends State<NavigationSidebar> {
                         return GestureDetector(
                             onTap: () {
                               _onItemSelected(index);
+                              if (drawerList[index]['title'] == 'Dashboard') {
+                                Navigator.pushReplacementNamed(
+                                    context, AppRouter.dashboard);
+                              } else if (drawerList[index]['title'] ==
+                                  'Notification') {
+                                Navigator.pushReplacementNamed(
+                                    context, AppRouter.notification);
+                              }
                             },
                             child: DrawerListItem(
                               icon: drawerList[index]['icons'],
