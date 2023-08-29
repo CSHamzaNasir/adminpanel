@@ -75,13 +75,65 @@ class _NotificationScreenState extends State<NotificationScreen> {
             child: SizedBox(
               height: 617,
               width: 665,
-              child: Row(
+              child: Column(
                 children: [
-                  buildTextFieldColumn("Pet Name", "Wu Tsui"),
-                  buildTextFieldColumn("Breed", "Malinois"),
-                  buildGenderDropdownColumn(
-                    "Gender",
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 30, right: 22),
+                        child: buildTextFieldColumn("Pet Name", "Wu Tsui"),
+                      ),
+                      buildTextFieldColumn("Breed", "Malinois"),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 22, right: 20),
+                        child: buildGenderDropdownColumn(
+                            "Gender", "Select Gender"),
+                      ),
+                    ],
                   ),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 30, top: 25),
+                    child: Row(
+                      children: [
+                        Text(
+                          'Select Option',
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xff6B7280)),
+                        ),
+                        SizedBox(width: 122),
+                        SizedBox(
+                          height: 37,
+                          width: 190,
+                          child: TextField(
+                            decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Color(0xff71717A))),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Color(0xff71717A))),
+                              hintText: 'Foster',
+                              hintStyle: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xff71717A),
+                              ),
+                              border: InputBorder.none,
+                              alignLabelWithHint: true,
+                            ),
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 22),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
@@ -133,7 +185,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     );
   }
 
-  Column buildGenderDropdownColumn(String labelText) {
+  Column buildGenderDropdownColumn(String labelText, String hintText) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -146,13 +198,20 @@ class _NotificationScreenState extends State<NotificationScreen> {
           height: 48,
           width: 190,
           child: DropdownButtonFormField<String>(
-            decoration: const InputDecoration(
-              enabledBorder: OutlineInputBorder(
+            decoration: InputDecoration(
+              enabledBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Color(0xff71717A)),
               ),
-              focusedBorder: OutlineInputBorder(
+              focusedBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Color(0xff71717A)),
               ),
+              hintText: hintText, // Set the provided hint text
+              hintStyle: const TextStyle(
+                color: Color(0xff71717A),
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+              ),
+              border: InputBorder.none,
             ),
             items: const [
               DropdownMenuItem<String>(
