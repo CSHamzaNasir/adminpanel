@@ -31,8 +31,7 @@ class AdoptionFormItem extends StatelessWidget {
                 border: Border.all(color: const Color(0xffD1D5DB)),
                 borderRadius: const BorderRadius.all(Radius.circular(10))),
             child: Row(children: [
-              const SizedBox(width: 10),
-              const SizedBox(width: 10),
+              const SizedBox(width: 12),
               Expanded(
                   child: TextField(
                       decoration: InputDecoration(

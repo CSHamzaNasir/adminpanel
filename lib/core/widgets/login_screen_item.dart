@@ -26,16 +26,16 @@ class TextFieldWithIconAndText extends StatelessWidget {
               width: 24,
               child: Icon(icon, color: const Color(0xff71717A))),
           const SizedBox(width: 10),
-          Text(hint,
-              style: const TextStyle(
-                color: Color(0xff71717A),
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-              )),
           const SizedBox(width: 10),
-          const Expanded(
+          Expanded(
               child: TextField(
                   decoration: InputDecoration(
+            hintText: hint,
+            hintStyle: const TextStyle(
+              color: Color(0xff71717A),
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+            ),
             border: InputBorder.none,
           )))
         ]));
