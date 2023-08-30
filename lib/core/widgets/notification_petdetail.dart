@@ -14,7 +14,7 @@ class NotifiicationPetDetail extends StatelessWidget {
             dataRowMaxHeight: 93,
             columns: const [
               DataColumn(label: Text('')),
-              DataColumn(label: Text('')),
+              DataColumn(label: Text(''))
             ],
             rows: notifPetData.map<DataRow>((data) {
               return DataRow(
@@ -38,23 +38,22 @@ class NotifiicationPetDetail extends StatelessWidget {
                               child: Image.network(data['img']))),
                       const SizedBox(width: 16),
                       Padding(
-                        padding: const EdgeInsets.only(top: 26, bottom: 27),
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(children: [
-                                Text(data['title'],
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                      color: Color(0xff111827),
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                    )),
-                              ]),
-                              const SizedBox(height: 6),
-                              Row(
-                                children: [
+                          padding: const EdgeInsets.only(top: 26, bottom: 27),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(children: [
+                                  Text(data['title'],
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                        color: Color(0xff111827),
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                      ))
+                                ]),
+                                const SizedBox(height: 6),
+                                Row(children: [
                                   Text(data['subTitle'],
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
@@ -71,47 +70,39 @@ class NotifiicationPetDetail extends StatelessWidget {
                                         color: Color(0xff333333),
                                         fontSize: 14,
                                         fontWeight: FontWeight.w500,
-                                      )),
-                                ],
-                              )
-                            ]),
-                      )
+                                      ))
+                                ])
+                              ]))
                     ])),
                     DataCell(Container(
                         alignment: Alignment.center,
-                        child: Row(
-                          children: [
-                            Padding(
+                        child: Row(children: [
+                          Padding(
                               padding: const EdgeInsets.only(
                                   left: 350, top: 26, bottom: 27),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    data['day'],
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    textAlign: TextAlign.center,
+                              child: Column(children: [
+                                Text(
+                                  data['day'],
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
                                   ),
-                                  Text(
-                                    data['time'],
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    textAlign: TextAlign.center,
+                                  textAlign: TextAlign.center,
+                                ),
+                                Text(
+                                  data['time'],
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
                                   ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(width: 46),
-                            Icon(data['imgIcon'],
-                                color: const Color(0xffEF4444))
-                          ],
-                        ))),
+                                  textAlign: TextAlign.center,
+                                )
+                              ])),
+                          const SizedBox(width: 46),
+                          Icon(data['imgIcon'], color: const Color(0xffEF4444))
+                        ])))
                   ]);
             }).toList(),
           )

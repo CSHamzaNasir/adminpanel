@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 const List<Map<String, dynamic>> petData = [
   {
-    'img': 'https://miro.medium.com/v2/resize:fit:1100/0*WW7QFszKa-29Te3z',
+    'img': 'https://picsum.photos/250?image=9',
     'title': 'Buddy',
     'subTitle': 'Mongrel',
     'imgIcon': Icons.male,
