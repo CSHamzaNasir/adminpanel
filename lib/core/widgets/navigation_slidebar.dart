@@ -61,6 +61,10 @@ class _NavigationSidebarState extends State<NavigationSidebar> {
                                   'Notification') {
                                 Navigator.pushReplacementNamed(
                                     context, AppRouter.notification);
+                              } else if (drawerList[index]['title'] ==
+                                  'Message') {
+                                Navigator.pushReplacementNamed(
+                                    context, AppRouter.message);
                               }
                             },
                             child: DrawerListItem(

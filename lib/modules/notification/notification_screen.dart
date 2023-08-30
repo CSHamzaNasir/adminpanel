@@ -64,14 +64,24 @@ class _NotificationScreenState extends State<NotificationScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Center(
-            child: Text(
-              "Notification",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w400),
-            ),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Spacer(),
+              const Text(
+                "Notification",
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+              ),
+              const Spacer(),
+              GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Icon(Icons.close))
+            ],
           ),
           content: Padding(
-            padding: const EdgeInsets.only(top: 52),
+            padding: const EdgeInsets.only(top: 40),
             child: SizedBox(
               height: 617,
               width: 665,
@@ -102,7 +112,29 @@ class _NotificationScreenState extends State<NotificationScreen> {
                               fontWeight: FontWeight.w500,
                               color: Color(0xff6B7280)),
                         ),
-                        SizedBox(width: 122),
+                        SizedBox(width: 130),
+                        SizedBox(
+                          height: 37,
+                          width: 190,
+                          child: TextField(
+                              decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Color(0xff71717A))),
+                            focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Color(0xff71717A))),
+                            hintText: 'Foster',
+                            hintStyle: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: Color(0xff18181B),
+                            ),
+                            border: InputBorder.none,
+                            alignLabelWithHint: true,
+                          )),
+                        ),
+                        SizedBox(width: 22),
                         SizedBox(
                           height: 37,
                           width: 190,
@@ -114,23 +146,69 @@ class _NotificationScreenState extends State<NotificationScreen> {
                               focusedBorder: OutlineInputBorder(
                                   borderSide:
                                       BorderSide(color: Color(0xff71717A))),
-                              hintText: 'Foster',
+                              hintText: 'Adoption',
                               hintStyle: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
-                                color: Color(0xff71717A),
+                                color: Color(0xff18181B),
                               ),
                               border: InputBorder.none,
                               alignLabelWithHint: true,
                             ),
-                            style: TextStyle(
-                              fontSize: 14,
+                          ),
+                        ),
+                        SizedBox(width: 18),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 42),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Description',
+                          style: TextStyle(
+                              fontSize: 16,
                               fontWeight: FontWeight.w500,
-                              color: Colors.black,
+                              color: Color(0xff18181B)),
+                        ),
+                        const SizedBox(height: 11),
+                        const SizedBox(
+                          height: 120,
+                          width: 615,
+                          child: TextField(
+                            decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Color(0xff71717A)),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Color(0xff71717A)),
+                              ),
                             ),
                           ),
                         ),
-                        SizedBox(width: 22),
+                        const SizedBox(height: 20),
+                        Center(
+                          child: SizedBox(
+                              width: 173,
+                              height: 55,
+                              child: ElevatedButton(
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                                      foregroundColor: Colors.white,
+                                      backgroundColor: const Color(0xff0566BD),
+                                      textStyle: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w400),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(8))),
+                                  child: const Text('Send Notification'))),
+                        )
                       ],
                     ),
                   )
@@ -138,14 +216,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
               ),
             ),
           ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text("Close"),
-            ),
-          ],
         );
       },
     );

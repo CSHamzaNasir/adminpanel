@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 const List<Map<String, dynamic>> petData = [
   {
-    'img': 'https://picsum.photos/250?image=9',
+    'img': 'https://miro.medium.com/v2/resize:fit:1100/0*WW7QFszKa-29Te3z',
     'title': 'Buddy',
     'subTitle': 'Mongrel',
-    'imgIcon': Icons.swipe_up_alt_outlined,
+    'imgIcon': Icons.male,
     'age': '1 Year',
     'status': 'Fostered',
     'statusColor': Color(0xff065F46),
@@ -15,7 +15,7 @@ const List<Map<String, dynamic>> petData = [
     'img': 'https://picsum.photos/250?image=9',
     'title': 'Charlie',
     'subTitle': 'Alaskan Malamute',
-    'imgIcon': Icons.swipe_up_alt_outlined,
+    'imgIcon': Icons.male,
     'age': '2 Year',
     'status': 'Adopted',
     'statusColor': Color(0xff065F46),
@@ -23,7 +23,7 @@ const List<Map<String, dynamic>> petData = [
   },
   {
     'img': 'https://picsum.photos/250?image=9',
-    'imgIcon': Icons.swipe_up_alt_outlined,
+    'imgIcon': Icons.male,
     'subTitle': 'Beagle',
     'title': 'Cooper',
     'age': '1 Year',
@@ -33,7 +33,7 @@ const List<Map<String, dynamic>> petData = [
   },
   {
     'img': 'https://picsum.photos/250?image=9',
-    'imgIcon': Icons.swipe_up_alt_outlined,
+    'imgIcon': Icons.female,
     'title': 'Miloo',
     'subTitle': 'Gordon Setter',
     'age': '3 Year',
@@ -43,7 +43,7 @@ const List<Map<String, dynamic>> petData = [
   },
   {
     'img': 'https://picsum.photos/250?image=9',
-    'imgIcon': Icons.swipe_up_alt_outlined,
+    'imgIcon': Icons.male,
     'subTitle': 'Mongrel',
     'title': 'Buddy',
     'age': '4 Year',
@@ -53,7 +53,7 @@ const List<Map<String, dynamic>> petData = [
   },
   {
     'img': 'https://picsum.photos/250?image=9',
-    'imgIcon': Icons.swipe_up_alt_outlined,
+    'imgIcon': Icons.male,
     'subTitle': 'Pixiebob Cat',
     'title': 'Rocky',
     'age': '1 Year',
@@ -63,7 +63,7 @@ const List<Map<String, dynamic>> petData = [
   },
   {
     'img': 'https://picsum.photos/250?image=9',
-    'imgIcon': Icons.swipe_up_alt_outlined,
+    'imgIcon': Icons.male,
     'subTitle': 'Maine Coon',
     'title': 'Teddy',
     'age': '2 Year',
@@ -73,7 +73,7 @@ const List<Map<String, dynamic>> petData = [
   },
   {
     'img': 'https://picsum.photos/250?image=9',
-    'imgIcon': Icons.swipe_up_alt_outlined,
+    'imgIcon': Icons.female,
     'subTitle': 'Munchkin Cat',
     'title': 'Luna',
     'age': '1 Year',
@@ -83,7 +83,7 @@ const List<Map<String, dynamic>> petData = [
   },
   {
     'img': 'https://picsum.photos/250?image=9',
-    'imgIcon': Icons.swipe_up_alt_outlined,
+    'imgIcon': Icons.female,
     'subTitle': 'Siberian Cat',
     'title': 'Zoe',
     'age': '1 Year',
@@ -93,7 +93,7 @@ const List<Map<String, dynamic>> petData = [
   },
   {
     'img': 'https://picsum.photos/250?image=9',
-    'imgIcon': Icons.swipe_up_alt_outlined,
+    'imgIcon': Icons.male,
     'subTitle': 'Mongrel',
     'title': 'Bailey',
     'age': '2 Year',
