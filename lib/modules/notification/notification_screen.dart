@@ -80,7 +80,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   padding: const EdgeInsets.only(top: 40),
                   child: SizedBox(
                       height: 617,
-                      width: 665,
+                      width: 675,
                       child: Column(children: [
                         Row(children: [
                           Padding(
@@ -235,7 +235,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   borderSide: BorderSide(color: Color(0xff71717A))),
               focusedBorder: const OutlineInputBorder(
                   borderSide: BorderSide(color: Color(0xff71717A))),
-              hintText: hintText, // Set the provided hint text
+              hintText: hintText,
               hintStyle: const TextStyle(
                 color: Color(0xff71717A),
                 fontSize: 14,

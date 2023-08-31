@@ -22,11 +22,10 @@ class AdoptionFormItem extends StatelessWidget {
               fontSize: 16,
               fontWeight: FontWeight.w500),
         ),
+        const SizedBox(height: 8),
         Container(
             width: 360,
             height: 60,
-            margin: const EdgeInsets.symmetric(vertical: 10),
-            padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
                 border: Border.all(color: const Color(0xffD1D5DB)),
                 borderRadius: const BorderRadius.all(Radius.circular(10))),
@@ -43,6 +42,7 @@ class AdoptionFormItem extends StatelessWidget {
                 border: InputBorder.none,
               )))
             ])),
+        const SizedBox(height: 15),
       ],
     );
   }
