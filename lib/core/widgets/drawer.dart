@@ -6,10 +6,10 @@ class DrawerList extends StatefulWidget {
   const DrawerList({Key? key}) : super(key: key);
 
   @override
-  _DrawerListState createState() => _DrawerListState();
+  DrawerListState createState() => DrawerListState();
 }
 
-class _DrawerListState extends State<DrawerList> {
+class DrawerListState extends State<DrawerList> {
   int _selectedIndex = -1;
 
   final List<Map<String, dynamic>> drawerList = [

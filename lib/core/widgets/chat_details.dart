@@ -1,46 +1,48 @@
-import 'package:enuadminpannel/core/widgets/right_chat.dart';
 import 'package:flutter/material.dart';
 
 import 'left_chat.dart';
+import 'right_chat.dart';
 
 class ChatDetails extends StatefulWidget {
-  const ChatDetails({
-    super.key,
-  });
+  const ChatDetails({Key? key}) : super(key: key);
 
   @override
   State<ChatDetails> createState() => _ChatDetailsState();
 }
 
-void showPopupMenu(BuildContext context) {
-  final RenderBox overlay =
-      Overlay.of(context).context.findRenderObject() as RenderBox;
-  final RenderBox button = context.findRenderObject() as RenderBox;
-  final Offset position = button.localToGlobal(Offset.zero, ancestor: overlay);
-
-  showMenu(
-    context: context,
-    position: RelativeRect.fromLTRB(position.dx, position.dy, 0, 0),
-    items: <PopupMenuEntry>[
-      const PopupMenuItem(
-        value: 'delete',
-        child: Text('Delete'),
-      ),
-      const PopupMenuItem(
-        value: 'block',
-        child: Text(
-          'Block',
-          style: TextStyle(color: Colors.red),
-        ),
-      ),
-    ],
-  ).then((value) {
-    if (value == 'delete') {
-    } else if (value == 'block') {}
-  });
-}
-
 class _ChatDetailsState extends State<ChatDetails> {
+  void showPopupMenu(BuildContext context) {
+    final RenderBox overlay =
+        Overlay.of(context).context.findRenderObject() as RenderBox;
+    final RenderBox button = context.findRenderObject() as RenderBox;
+    final Offset position =
+        button.localToGlobal(Offset.zero, ancestor: overlay);
+
+    showMenu(
+      context: context,
+      position: RelativeRect.fromLTRB(position.dx, position.dy, 0, 0),
+      items: <PopupMenuEntry>[
+        const PopupMenuItem(
+          value: 'delete',
+          child: Text('Delete'),
+        ),
+        const PopupMenuItem(
+          value: 'block',
+          child: Text(
+            'Block',
+            style: TextStyle(color: Colors.red),
+          ),
+        ),
+      ],
+    ).then((value) {
+      if (value == 'delete') {
+        // Handle delete action
+      } else if (value == 'block') {
+        // Handle block action
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -79,14 +81,16 @@ class _ChatDetailsState extends State<ChatDetails> {
                     ),
                     const Spacer(),
                     SizedBox(
-                        height: 20,
-                        width: 20,
-                        child: GestureDetector(
-                            onTap: () {
-                              showPopupMenu(context);
-                            },
-                            child: const Icon(Icons.more_vert))),
-                    const SizedBox(width: 15)
+                      height: 20,
+                      width: 20,
+                      child: GestureDetector(
+                        onTap: () {
+                          showPopupMenu(context);
+                        },
+                        child: const Icon(Icons.more_vert),
+                      ),
+                    ),
+                    const SizedBox(width: 15),
                   ],
                 ),
                 const SizedBox(height: 40),
@@ -108,17 +112,17 @@ class _ChatDetailsState extends State<ChatDetails> {
                 const RightChat(),
                 const SizedBox(height: 30),
                 Container(
-                    padding: const EdgeInsets.all(8),
-                    child: TextField(
-                        decoration: InputDecoration(
+                  padding: const EdgeInsets.all(8),
+                  child: TextField(
+                    decoration: InputDecoration(
                       suffixIcon: Padding(
                         padding: const EdgeInsets.all(3),
                         child: Container(
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: const Color(0xff0566BD),
-                              border:
-                                  Border.all(color: const Color(0xff0566BD))),
+                            borderRadius: BorderRadius.circular(5),
+                            color: const Color(0xff0566BD),
+                            border: Border.all(color: const Color(0xff0566BD)),
+                          ),
                           child: const Icon(
                             Icons.send,
                             color: Color(0xffFFFFFF),
@@ -136,7 +140,9 @@ class _ChatDetailsState extends State<ChatDetails> {
                         fontWeight: FontWeight.w400,
                       ),
                       border: InputBorder.none,
-                    ))),
+                    ),
+                  ),
+                ),
                 const SizedBox(height: 60),
               ],
             ),

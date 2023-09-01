@@ -15,10 +15,10 @@ class NavigationSidebar extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _NavigationSidebarState createState() => _NavigationSidebarState();
+  NavigationSidebarState createState() => NavigationSidebarState();
 }
 
-class _NavigationSidebarState extends State<NavigationSidebar> {
+class NavigationSidebarState extends State<NavigationSidebar> {
   int _selectedIndex = -1;
 
   void _onItemSelected(int index) {
@@ -41,7 +41,7 @@ class _NavigationSidebarState extends State<NavigationSidebar> {
             padding: const EdgeInsets.only(left: 48, top: 45, right: 48),
             child: Column(children: [
               Image.network(
-                'https://images.squarespace-cdn.com/content/v1/5982fa4fe58c62cb28091fa4/1583424203893-6HL2VVUIXK3PEIBXKSVL/image-asset.jpeg?format=1500w',
+                'https://i.ibb.co/3RnTNSc/SPCA-Logo-1-2.png',
                 fit: BoxFit.cover,
                 width: 204,
                 height: 66,
