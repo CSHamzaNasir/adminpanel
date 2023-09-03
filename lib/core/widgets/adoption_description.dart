@@ -1,4 +1,3 @@
-import 'package:enuadminpannel/config/app_router.dart';
 import 'package:flutter/material.dart';
 
 class AdoptionDescription extends StatelessWidget {
@@ -42,9 +41,7 @@ class AdoptionDescription extends StatelessWidget {
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xff0566BD)),
-                          onPressed: () {
-                            Navigator.pushNamed(context, AppRouter.addFooster);
-                          },
+                          onPressed: () {},
                           child: const Text('create',
                               style: TextStyle(
                                   fontSize: 18,

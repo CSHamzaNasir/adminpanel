@@ -1,4 +1,5 @@
 import 'package:enuadminpannel/core/auth/screen/login_screen.dart';
+import 'package:enuadminpannel/modules/add_fooster_data.dart/add_fooster.dart';
 import 'package:enuadminpannel/modules/adoption_form/adoption_form_screen.dart';
 import 'package:enuadminpannel/modules/dash_board/dash_board_screen.dart';
 import 'package:enuadminpannel/modules/events/events_screen.dart';
@@ -16,6 +17,7 @@ class AppRouter {
   static const message = "/message";
   static const events = "/events";
   static const addFooster = "/addFooster";
+  static const dataEntryScreen = "/dataEntryScreen";
 
   static final key = GlobalKey<NavigatorState>();
 
@@ -47,7 +49,10 @@ class AppRouter {
         return _navigate(const EventsScreen());
 
       case AppRouter.addFooster:
-        return _navigate(const AddFooster());
+        return _navigate(const AddFoosters());
+
+      case AppRouter.dataEntryScreen:
+        return _navigate(const DataEntryScreen());
 
       default:
         return _errorRoute();

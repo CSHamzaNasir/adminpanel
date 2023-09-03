@@ -1,301 +1,190 @@
 import 'package:flutter/material.dart';
-import '../../core/widgets/navigation_slidebar.dart';
-import 'add_fooster_data.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class AddFooster extends StatefulWidget {
-  const AddFooster({Key? key}) : super(key: key);
+class DataEntryScreen extends StatefulWidget {
+  const DataEntryScreen({super.key});
 
   @override
-  State<AddFooster> createState() => _AddFoosterState();
+  DataEntryScreenState createState() => DataEntryScreenState();
 }
 
-class _AddFoosterState extends State<AddFooster> {
-  String? selectedValue;
-  final GlobalKey<FormState> _ageFormKey = GlobalKey<FormState>();
-  final GlobalKey<FormState> _typeFormKey = GlobalKey<FormState>();
-  final GlobalKey<FormState> _fosterPeriodFormKey = GlobalKey<FormState>();
-  final GlobalKey<FormState> _colorFormKey = GlobalKey<FormState>();
+class DataEntryScreenState extends State<DataEntryScreen> {
+  TextEditingController textEditingController1 = TextEditingController();
+  TextEditingController textEditingController2 = TextEditingController();
+  TextEditingController textEditingController3 = TextEditingController();
+  TextEditingController textEditingController4 = TextEditingController();
+  TextEditingController textEditingController5 = TextEditingController();
+  TextEditingController textEditingController6 = TextEditingController();
+  List<String> savedDataList = [];
+  List<String> dropdownItems = ['Option 1', 'Option 2', 'Option 3'];
+  String selectedDropdownItem1 = 'Option 1';
+  String selectedDropdownItem2 = 'Option 1';
+  String selectedDropdownItem3 = 'Option 1';
 
-  String? selectedSource; // Initialize with a default value
-  String? selectedDifficulty; // Initialize with a default value
-  String? selectedSpecies; // Initialize with a default value
+  @override
+  void initState() {
+    super.initState();
+    loadSavedData();
+  }
 
-  // Arrays for dropdown items
-  final List<DropdownMenuItem<String>> sourceItems = [
-    const DropdownMenuItem(
-      value: "rescue",
-      child: Text("Rescue"),
-    ),
-    const DropdownMenuItem(
-      value: "abandoned",
-      child: Text("Abandoned"),
-    ),
-  ];
+  void loadSavedData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String>? savedData = prefs.getStringList('saved_data');
 
-  final List<DropdownMenuItem<String>> difficultyItems = [
-    const DropdownMenuItem(
-      value: "easy",
-      child: Text("Easy"),
-    ),
-    const DropdownMenuItem(
-      value: "medium",
-      child: Text("Medium"),
-    ),
-    const DropdownMenuItem(
-      value: "hard",
-      child: Text("Hard"),
-    ),
-  ];
+    setState(() {
+      savedDataList = savedData ?? [];
+      if (savedDataList.isNotEmpty) {
+        List<String> savedDataFields = savedDataList.last.split(",");
+        if (savedDataFields.length == 7) {
+          // Update the length to 7 for 3 dropdowns and 4 text fields
+          textEditingController1.text = savedDataFields[0];
+          textEditingController2.text = savedDataFields[1];
+          textEditingController3.text = savedDataFields[2];
+          textEditingController4.text = savedDataFields[3];
+          textEditingController5.text = savedDataFields[4];
+          textEditingController6.text = savedDataFields[5];
+          selectedDropdownItem1 =
+              savedDataFields[6]; // Load the selected dropdown item
+        }
+      }
+    });
+  }
 
-  final List<DropdownMenuItem<String>> speciesItems = [
-    const DropdownMenuItem(
-      value: "cat",
-      child: Text("Cat"),
-    ),
-    const DropdownMenuItem(
-      value: "dog",
-      child: Text("Dog"),
-    ),
-  ];
+  void saveData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String newData1 = textEditingController1.text;
+    String newData2 = textEditingController2.text;
+    String newData3 = textEditingController3.text;
+    String newData4 = textEditingController4.text;
+    String newData5 = textEditingController5.text;
+    String newData6 = textEditingController6.text;
+    String newData7 = selectedDropdownItem1;
+
+    if (newData1.isNotEmpty ||
+        newData2.isNotEmpty ||
+        newData3.isNotEmpty ||
+        newData4.isNotEmpty ||
+        newData5.isNotEmpty ||
+        newData6.isNotEmpty ||
+        newData7.isNotEmpty) {
+      String newData =
+          "$newData1,$newData2,$newData3,$newData4,$newData5,$newData6,$newData7";
+      savedDataList.add(newData);
+      prefs.setStringList('saved_data', savedDataList);
+    }
+
+    setState(() {
+      textEditingController1.clear();
+      textEditingController2.clear();
+      textEditingController3.clear();
+      textEditingController4.clear();
+      textEditingController5.clear();
+      textEditingController6.clear();
+      selectedDropdownItem1 = 'Option 1';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                onPressed: () {
-                  _showDialog(context);
-                },
-                icon: const Icon(Icons.add),
-              ),
-              const Text('Add Fooster/Adopter'),
-            ],
-          ),
-        ),
+        title: const Text('Persistent TextField Example'),
       ),
-      body: Row(
-        children: [
-          NavigationSidebar(selectedIndex: -1, onItemSelected: (index) {}),
-          Expanded(
-            child: ListView.builder(
-              itemCount: createFoosterData.length,
-              itemBuilder: (BuildContext context, int index) {
-                final fooster = createFoosterData[index];
-
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Card(
-                    elevation: 3,
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        backgroundColor: Colors.blue,
-                        child: Text(
-                          fooster.patientNo.toString(),
-                          style: const TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                      title: Text(
-                        '${fooster.color} ${fooster.species}',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Age: ${fooster.age}'),
-                          Text('Sex: ${fooster.sex}'),
-                          Text('Species: ${fooster.species}'),
-                          Text('Source: ${fooster.source}'),
-                          Text('Difficulty: ${fooster.difficulty}'),
-                        ],
-                      ),
-                      trailing: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Type: ${fooster.type}'),
-                          Text('FoosterPeriod: ${fooster.foosterPeriod}'),
-                        ],
-                      ),
-                    ),
-                  ),
+      body: Center(
+        child: Column(
+          children: [
+            TextField(
+              controller: textEditingController1,
+              decoration: const InputDecoration(
+                hintText: 'Field 1',
+              ),
+            ),
+            TextField(
+              controller: textEditingController2,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Field 2',
+              ),
+            ),
+            TextField(
+              controller: textEditingController3,
+              decoration: const InputDecoration(
+                hintText: 'Field 3',
+              ),
+            ),
+            TextField(
+              controller: textEditingController4,
+              decoration: const InputDecoration(
+                hintText: 'Field 4',
+              ),
+            ),
+            TextField(
+              controller: textEditingController5,
+              decoration: const InputDecoration(
+                hintText: 'Field 5',
+              ),
+            ),
+            TextField(
+              controller: textEditingController6,
+              decoration: const InputDecoration(
+                hintText: 'Field 6',
+              ),
+            ),
+            DropdownButtonFormField<String>(
+              value: selectedDropdownItem1,
+              items: dropdownItems.map((String item) {
+                return DropdownMenuItem<String>(
+                  value: item,
+                  child: Text(item),
                 );
+              }).toList(),
+              onChanged: (String? newValue) {
+                setState(() {
+                  selectedDropdownItem1 = newValue ?? 'Option 1';
+                });
               },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Future<void> _showDialog(BuildContext context) async {
-    await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          content: SizedBox(
-            width: 675,
-            height: 449,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 75, right: 76, top: 30),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        const Spacer(),
-                        const Text(
-                          "New Fooster/Adopter",
-                          style: TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.w600),
-                        ),
-                        const Spacer(),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Icon(Icons.close),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 50),
-                    Column(
-                      children: [
-                        _buildTextField("Age", Icons.pets, _ageFormKey),
-                        const SizedBox(height: 20),
-                        _buildTextField(
-                            "Type", Icons.format_list_bulleted, _typeFormKey),
-                        const SizedBox(height: 20),
-                        _buildTextField("Fosster Period", Icons.schedule,
-                            _fosterPeriodFormKey),
-                        const SizedBox(height: 20),
-                        _buildTextField("Color", Icons.palette, _colorFormKey),
-                        const SizedBox(height: 20),
-                        _buildDropdown("Source", selectedSource, sourceItems),
-                        const SizedBox(height: 20),
-                        _buildDropdown(
-                            "Difficulty", selectedDifficulty, difficultyItems),
-                        const SizedBox(height: 20),
-                        _buildDropdown(
-                            "Species", selectedSpecies, speciesItems),
-                        const SizedBox(height: 20),
-                        _buildDropdown("Select Gender", selectedValue, [
-                          const DropdownMenuItem(
-                            value: "Male",
-                            child: Text("Male"),
-                          ),
-                          const DropdownMenuItem(
-                            value: "Female",
-                            child: Text("Female"),
-                          ),
-                        ]),
-                        const SizedBox(height: 40),
-                        SizedBox(
-                          width: 360,
-                          height: 60,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              if (_ageFormKey.currentState!.validate() &&
-                                  _typeFormKey.currentState!.validate() &&
-                                  _fosterPeriodFormKey.currentState!
-                                      .validate() &&
-                                  _colorFormKey.currentState!.validate()) {
-                                // Handle form submission here
-                              }
-                            },
-                            style: ElevatedButton.styleFrom(
-                              foregroundColor: Colors.white,
-                              backgroundColor: const Color(0xff0566BD),
-                              elevation: 5,
-                              textStyle: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                            ),
-                            child: const Text('Create Fooster/Adopter'),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+              decoration: const InputDecoration(
+                hintText: 'Select an option',
               ),
             ),
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _buildTextField(
-      String labelText, IconData icon, GlobalKey<FormState> formKey) {
-    return Form(
-      key: formKey,
-      child: Row(
-        children: [
-          Expanded(
-            child: TextFormField(
-              decoration: InputDecoration(
-                suffixIcon: Icon(
-                  icon,
-                  size: 20,
-                ),
-                labelText: labelText,
-                border: const OutlineInputBorder(),
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return "Field is required";
-                }
-                return null;
+            ElevatedButton(
+              onPressed: () {
+                saveData();
               },
+              child: const Text('Save Data'),
             ),
-          ),
-          const SizedBox(width: 10),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildDropdown(String labelText, String? selectedValue,
-      List<DropdownMenuItem<String>> items) {
-    return Form(
-      key: GlobalKey<FormState>(), // Use a unique GlobalKey for each Form
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          DropdownButtonFormField<String>(
-            decoration: InputDecoration(
-              focusedBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Color(0xff6B7280)),
+            Expanded(
+              child: ListView.builder(
+                itemCount: savedDataList.length,
+                itemBuilder: (context, index) {
+                  List<String> savedDataFields =
+                      savedDataList[index].split(",");
+                  if (savedDataFields.length == 7) {
+                    return Container(
+                      margin: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(8.0),
+                      color: Colors.yellow,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Field 1: ${savedDataFields[0]}'),
+                          Text('Field 2: ${savedDataFields[1]}'),
+                          Text('Field 3: ${savedDataFields[2]}'),
+                          Text('Field 4: ${savedDataFields[3]}'),
+                          Text('Field 5: ${savedDataFields[4]}'),
+                          Text('Field 6: ${savedDataFields[5]}'),
+                          Text(
+                              'Selected Option: ${savedDataFields[6]}'), // Display the selected option
+                        ],
+                      ),
+                    );
+                  }
+                  return const SizedBox();
+                },
               ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              filled: true,
-              fillColor: Colors.white,
-              labelText: labelText,
             ),
-            value: selectedValue,
-            onChanged: (String? newValue) {
-              setState(() {
-                selectedValue = newValue;
-              });
-            },
-            items: items,
-            hint: Text("Select $labelText"),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

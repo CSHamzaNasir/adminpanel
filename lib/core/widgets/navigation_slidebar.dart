@@ -69,6 +69,10 @@ class NavigationSidebarState extends State<NavigationSidebar> {
                                   'Events') {
                                 Navigator.pushReplacementNamed(
                                     context, AppRouter.events);
+                              } else if (drawerList[index]['title'] ==
+                                  'Add Fooster') {
+                                Navigator.pushReplacementNamed(
+                                    context, AppRouter.addFooster);
                               }
                             },
                             child: DrawerListItem(

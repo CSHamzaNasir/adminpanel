@@ -6,6 +6,10 @@ const List<Map<String, dynamic>> drawerList = [
     'title': 'Dashboard',
   },
   {
+    'icons': Icons.add_circle,
+    'title': 'Add Fooster',
+  },
+  {
     'icons': Icons.notifications,
     'title': 'Notification',
   },
