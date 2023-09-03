@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'ENU Application',
       debugShowCheckedModeBanner: false,
       navigatorKey: AppRouter.key,
-      initialRoute: AppRouter.login,
+      initialRoute: AppRouter.addFooster,
       onGenerateRoute: AppRouter.onGenerateRoute,
     );
   }
