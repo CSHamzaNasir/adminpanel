@@ -72,7 +72,7 @@ class NavigationSidebarState extends State<NavigationSidebar> {
                               } else if (drawerList[index]['title'] ==
                                   'Add Fooster') {
                                 Navigator.pushReplacementNamed(
-                                    context, AppRouter.addFooster);
+                                    context, AppRouter.dataEntryScreen);
                               }
                             },
                             child: DrawerListItem(

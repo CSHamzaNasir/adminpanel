@@ -29,29 +29,39 @@ class LoginScreen extends StatelessWidget {
 
   Widget _buildBackgroundImage(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double imageWidth = screenWidth < 700 ? 400 : 752;
+    double imageWidth =
+        screenWidth < 700 ? 200 : (screenWidth < 1100 ? 300 : 752);
+    double imageHeight = screenWidth < 700
+        ? double.infinity
+        : (screenWidth < 1100 ? double.infinity : double.infinity);
+    double secondImageTop = 50;
+    double secondImageLeft = 30;
 
     return Stack(
       children: [
         SizedBox(
           width: imageWidth,
+          height: imageHeight,
           child: Image.network(
             backgroundImageURL,
             fit: BoxFit.cover,
           ),
         ),
-        Positioned(
-          top: 50,
-          left: 50,
-          child: SizedBox(
-            height: 82,
-            width: 253,
-            child: Image.network(
-              'https://i.ibb.co/3RnTNSc/SPCA-Logo-1-2.png',
-              fit: BoxFit.cover,
+        Visibility(
+          visible: screenWidth >= 700,
+          child: Positioned(
+            top: secondImageTop,
+            left: secondImageLeft,
+            child: SizedBox(
+              height: 82,
+              width: 253,
+              child: Image.network(
+                'https://i.ibb.co/3RnTNSc/SPCA-Logo-1-2.png',
+                fit: BoxFit.cover,
+              ),
             ),
           ),
-        )
+        ),
       ],
     );
   }
@@ -100,6 +110,8 @@ class LoginScreen extends StatelessWidget {
   }
 
   Widget _buildLoginButton(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return ElevatedButton(
       onPressed: () {
         Navigator.pushReplacementNamed(
@@ -113,10 +125,10 @@ class LoginScreen extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
         ),
       ),
-      child: const SizedBox(
-        width: double.infinity,
+      child: SizedBox(
+        width: screenWidth < 1100 ? 300 : double.infinity,
         height: 40,
-        child: Center(
+        child: const Center(
           child: Text(
             'Login',
             style: TextStyle(

@@ -5,6 +5,7 @@ import 'package:enuadminpannel/modules/dash_board/dash_board_screen.dart';
 import 'package:enuadminpannel/modules/events/events_screen.dart';
 import 'package:enuadminpannel/modules/message/message_screen.dart';
 import 'package:enuadminpannel/modules/notification/notification_screen.dart';
+import 'package:enuadminpannel/responsive/home_page.dart';
 import 'package:flutter/material.dart';
 
 import '../modules/add_fooster_data.dart/trying.dart';
@@ -18,6 +19,7 @@ class AppRouter {
   static const events = "/events";
   static const addFooster = "/addFooster";
   static const dataEntryScreen = "/dataEntryScreen";
+  static const homePage = "/homePage";
 
   static final key = GlobalKey<NavigatorState>();
 
@@ -49,10 +51,13 @@ class AppRouter {
         return _navigate(const EventsScreen());
 
       case AppRouter.addFooster:
-        return _navigate(const AddFoosters());
+        return _navigate(const FoosterListScreen());
 
       case AppRouter.dataEntryScreen:
         return _navigate(const DataEntryScreen());
+
+      case AppRouter.homePage:
+        return _navigate(const HomePage());
 
       default:
         return _errorRoute();

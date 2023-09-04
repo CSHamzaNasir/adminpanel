@@ -1,5 +1,5 @@
 class CreateFooster {
-  final double patientNo;
+  final String patientNo;
   final String age;
   final String sex;
   final String color;

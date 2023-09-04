@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../core/widgets/navigation_slidebar.dart';
+import 'add_fooster_data.dart';
+
 class DataEntryScreen extends StatefulWidget {
   const DataEntryScreen({super.key});
 
@@ -9,22 +12,28 @@ class DataEntryScreen extends StatefulWidget {
 }
 
 class DataEntryScreenState extends State<DataEntryScreen> {
+  late int dataEntryCount;
   TextEditingController textEditingController1 = TextEditingController();
   TextEditingController textEditingController2 = TextEditingController();
   TextEditingController textEditingController3 = TextEditingController();
   TextEditingController textEditingController4 = TextEditingController();
-  TextEditingController textEditingController5 = TextEditingController();
-  TextEditingController textEditingController6 = TextEditingController();
   List<String> savedDataList = [];
-  List<String> dropdownItems = ['Option 1', 'Option 2', 'Option 3'];
-  String selectedDropdownItem1 = 'Option 1';
-  String selectedDropdownItem2 = 'Option 1';
-  String selectedDropdownItem3 = 'Option 1';
+  String selectedDropdownItem1 = 'Male';
+  String selectedDropdownItem2 = 'Rescue';
+  String selectedDropdownItem3 = 'Cat';
+  String selectedDropdownItem4 = 'Easy';
+
+  List<String> dropdownItems = ['Male', 'Female'];
+  List<String> dropdownItems2 = ['Rescue', 'Abandoned'];
+  List<String> dropdownItems3 = ['Cat', 'Dog', 'Other'];
+  List<String> dropdownItems4 = ['Easy', 'Medium', 'Hard'];
 
   @override
   void initState() {
     super.initState();
     loadSavedData();
+
+    dataEntryCount = 7;
   }
 
   void loadSavedData() async {
@@ -35,16 +44,15 @@ class DataEntryScreenState extends State<DataEntryScreen> {
       savedDataList = savedData ?? [];
       if (savedDataList.isNotEmpty) {
         List<String> savedDataFields = savedDataList.last.split(",");
-        if (savedDataFields.length == 7) {
-          // Update the length to 7 for 3 dropdowns and 4 text fields
+        if (savedDataFields.length == 8) {
           textEditingController1.text = savedDataFields[0];
           textEditingController2.text = savedDataFields[1];
           textEditingController3.text = savedDataFields[2];
           textEditingController4.text = savedDataFields[3];
-          textEditingController5.text = savedDataFields[4];
-          textEditingController6.text = savedDataFields[5];
-          selectedDropdownItem1 =
-              savedDataFields[6]; // Load the selected dropdown item
+          selectedDropdownItem1 = savedDataFields[4];
+          selectedDropdownItem2 = savedDataFields[5];
+          selectedDropdownItem3 = savedDataFields[6];
+          selectedDropdownItem4 = savedDataFields[7];
         }
       }
     });
@@ -56,21 +64,21 @@ class DataEntryScreenState extends State<DataEntryScreen> {
     String newData2 = textEditingController2.text;
     String newData3 = textEditingController3.text;
     String newData4 = textEditingController4.text;
-    String newData5 = textEditingController5.text;
-    String newData6 = textEditingController6.text;
-    String newData7 = selectedDropdownItem1;
+    String newData5 = selectedDropdownItem1;
+    String newData6 = selectedDropdownItem2;
+    String newData7 = selectedDropdownItem3;
+    String newData8 = selectedDropdownItem4;
 
     if (newData1.isNotEmpty ||
         newData2.isNotEmpty ||
         newData3.isNotEmpty ||
         newData4.isNotEmpty ||
-        newData5.isNotEmpty ||
-        newData6.isNotEmpty ||
-        newData7.isNotEmpty) {
+        newData5.isNotEmpty) {
       String newData =
-          "$newData1,$newData2,$newData3,$newData4,$newData5,$newData6,$newData7";
+          "$newData1,$newData2,$newData3,$newData4,$newData5,$newData6,$newData7,$newData8";
       savedDataList.add(newData);
       prefs.setStringList('saved_data', savedDataList);
+      dataEntryCount++;
     }
 
     setState(() {
@@ -78,113 +86,289 @@ class DataEntryScreenState extends State<DataEntryScreen> {
       textEditingController2.clear();
       textEditingController3.clear();
       textEditingController4.clear();
-      textEditingController5.clear();
-      textEditingController6.clear();
-      selectedDropdownItem1 = 'Option 1';
+      selectedDropdownItem1 = 'Male';
+      selectedDropdownItem2 = 'Rescue';
+      selectedDropdownItem3 = 'Cat';
+      selectedDropdownItem4 = 'Easy';
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Persistent TextField Example'),
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            TextField(
-              controller: textEditingController1,
-              decoration: const InputDecoration(
-                hintText: 'Field 1',
-              ),
-            ),
-            TextField(
-              controller: textEditingController2,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Field 2',
-              ),
-            ),
-            TextField(
-              controller: textEditingController3,
-              decoration: const InputDecoration(
-                hintText: 'Field 3',
-              ),
-            ),
-            TextField(
-              controller: textEditingController4,
-              decoration: const InputDecoration(
-                hintText: 'Field 4',
-              ),
-            ),
-            TextField(
-              controller: textEditingController5,
-              decoration: const InputDecoration(
-                hintText: 'Field 5',
-              ),
-            ),
-            TextField(
-              controller: textEditingController6,
-              decoration: const InputDecoration(
-                hintText: 'Field 6',
-              ),
-            ),
-            DropdownButtonFormField<String>(
-              value: selectedDropdownItem1,
-              items: dropdownItems.map((String item) {
-                return DropdownMenuItem<String>(
-                  value: item,
-                  child: Text(item),
-                );
-              }).toList(),
-              onChanged: (String? newValue) {
-                setState(() {
-                  selectedDropdownItem1 = newValue ?? 'Option 1';
-                });
-              },
-              decoration: const InputDecoration(
-                hintText: 'Select an option',
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                saveData();
-              },
-              child: const Text('Save Data'),
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: savedDataList.length,
-                itemBuilder: (context, index) {
-                  List<String> savedDataFields =
-                      savedDataList[index].split(",");
-                  if (savedDataFields.length == 7) {
-                    return Container(
-                      margin: const EdgeInsets.all(8.0),
-                      padding: const EdgeInsets.all(8.0),
-                      color: Colors.yellow,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Field 1: ${savedDataFields[0]}'),
-                          Text('Field 2: ${savedDataFields[1]}'),
-                          Text('Field 3: ${savedDataFields[2]}'),
-                          Text('Field 4: ${savedDataFields[3]}'),
-                          Text('Field 5: ${savedDataFields[4]}'),
-                          Text('Field 6: ${savedDataFields[5]}'),
-                          Text(
-                              'Selected Option: ${savedDataFields[6]}'), // Display the selected option
-                        ],
+      body: Row(
+        children: [
+          NavigationSidebar(selectedIndex: -1, onItemSelected: (index) {}),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: 211,
+                      height: 52,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          backgroundColor: const Color(0xff0566BD),
+                          elevation: 5,
+                          padding: const EdgeInsets.only(
+                              top: 10, bottom: 5, left: 5, right: 12),
+                          textStyle: const TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w400),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: const Text('Enter Fooster Data'),
                       ),
-                    );
-                  }
-                  return const SizedBox();
-                },
+                    ),
+                    const SizedBox(height: 12),
+                    TextField(
+                      controller: textEditingController1,
+                      decoration: const InputDecoration(
+                        hintText: 'Age',
+                      ),
+                    ),
+                    TextField(
+                      controller: textEditingController2,
+                      decoration: const InputDecoration(
+                        hintText: 'Color',
+                      ),
+                    ),
+                    TextField(
+                      controller: textEditingController3,
+                      decoration: const InputDecoration(
+                        hintText: 'Type',
+                      ),
+                    ),
+                    TextField(
+                      controller: textEditingController4,
+                      decoration: const InputDecoration(
+                        hintText: 'Fooster Period',
+                      ),
+                    ),
+                    DropdownButtonFormField<String>(
+                      value: selectedDropdownItem1,
+                      items: dropdownItems.map((String item) {
+                        return DropdownMenuItem<String>(
+                          value: item,
+                          child: Text(item),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          selectedDropdownItem1 = newValue ?? 'Male';
+                        });
+                      },
+                      decoration: const InputDecoration(
+                        hintText: 'Sex',
+                      ),
+                    ),
+                    DropdownButtonFormField<String>(
+                      value: selectedDropdownItem2,
+                      items: dropdownItems2.map((String item) {
+                        return DropdownMenuItem<String>(
+                          value: item,
+                          child: Text(item),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          selectedDropdownItem2 = newValue ?? 'Rescue';
+                        });
+                      },
+                      decoration: const InputDecoration(
+                        hintText: 'Source',
+                      ),
+                    ),
+                    DropdownButtonFormField<String>(
+                      value: selectedDropdownItem3,
+                      items: dropdownItems3.map((String item) {
+                        return DropdownMenuItem<String>(
+                          value: item,
+                          child: Text(item),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          selectedDropdownItem3 = newValue ?? 'Cat';
+                        });
+                      },
+                      decoration: const InputDecoration(
+                        hintText: 'Difficulty',
+                      ),
+                    ),
+                    DropdownButtonFormField<String>(
+                      value: selectedDropdownItem4,
+                      items: dropdownItems4.map((String item) {
+                        return DropdownMenuItem<String>(
+                          value: item,
+                          child: Text(item),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          selectedDropdownItem4 = newValue ?? 'Easy';
+                        });
+                      },
+                      decoration: const InputDecoration(
+                        hintText: 'Species',
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    ElevatedButton(
+                      onPressed: () {
+                        saveData();
+                      },
+                      child: const Text('Enter Data'),
+                    ),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: createFoosterData.length,
+                      itemBuilder: (context, index) {
+                        final fooster = createFoosterData[index];
+                        return ListTile(
+                          subtitle: Card(
+                            child: Container(
+                              margin: const EdgeInsets.all(18.0),
+                              padding: const EdgeInsets.all(18.0),
+                              child: Row(
+                                children: [
+                                  CircleAvatar(child: Text(fooster.patientNo)),
+                                  const SizedBox(width: 12),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text('Sex: ${fooster.sex}'),
+                                      Text('Color: ${fooster.color}'),
+                                      Text('Source: ${fooster.source}'),
+                                      Text('Difficulty: ${fooster.difficulty}'),
+                                    ],
+                                  ),
+                                  const Spacer(),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text('Species: ${fooster.species}'),
+                                      Text('Age: ${fooster.age}'),
+                                    ],
+                                  ),
+                                  const Spacer(),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text('Type: ${fooster.type}'),
+                                      Text(
+                                          'FoosterPeriod: ${fooster.foosterPeriod}'),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    // Display the saved data
+                    ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: savedDataList.length,
+                      itemBuilder: (context, index) {
+                        List<String> savedDataFields =
+                            savedDataList[index].split(",");
+                        if (savedDataFields.length == 8) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.all(18.0),
+                                padding: const EdgeInsets.all(18.0),
+                                color: Colors.blueAccent,
+                                child: Row(
+                                  children: [
+                                    CircleAvatar(child: Text(' ${index + 1}')),
+                                    const SizedBox(width: 12),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Sex: ${savedDataFields[4]}',
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                        ),
+                                        Text(
+                                          'Color: ${savedDataFields[1]}',
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                        ),
+                                        Text(
+                                          'Source: ${savedDataFields[5]}',
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                        ),
+                                        Text(
+                                          'Difficulty: ${savedDataFields[6]}',
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                        ),
+                                      ],
+                                    ),
+                                    const Spacer(),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Age: ${savedDataFields[0]}',
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                        ),
+                                        Text(
+                                          'Species: ${savedDataFields[7]}',
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                        ),
+                                      ],
+                                    ),
+                                    const Spacer(),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Type: ${savedDataFields[2]}',
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                        ),
+                                        Text(
+                                          'Fooster Period: ${savedDataFields[3]}',
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
+                        }
+                        return const SizedBox();
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

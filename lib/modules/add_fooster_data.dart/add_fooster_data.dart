@@ -2,7 +2,7 @@ import 'package:enuadminpannel/modules/add_fooster_data.dart/product.dart';
 
 final List<CreateFooster> createFoosterData = [
   CreateFooster(
-    1,
+    '1',
     '1d',
     'M',
     'Tabby White',
@@ -13,7 +13,7 @@ final List<CreateFooster> createFoosterData = [
     '1m',
   ),
   CreateFooster(
-    2,
+    '2',
     '1w',
     'F',
     'Brown',
@@ -24,7 +24,7 @@ final List<CreateFooster> createFoosterData = [
     '1m',
   ),
   CreateFooster(
-    3,
+    '3',
     '3m',
     'F',
     'Black',
@@ -35,7 +35,7 @@ final List<CreateFooster> createFoosterData = [
     '1m',
   ),
   CreateFooster(
-    4,
+    '4',
     '3m',
     'F',
     'Glinger',
@@ -46,7 +46,7 @@ final List<CreateFooster> createFoosterData = [
     '1m',
   ),
   CreateFooster(
-    5,
+    '5',
     '5d',
     'M',
     'White',
@@ -57,7 +57,7 @@ final List<CreateFooster> createFoosterData = [
     '1m',
   ),
   CreateFooster(
-    6,
+    '6',
     '1w',
     'M',
     'Black',
