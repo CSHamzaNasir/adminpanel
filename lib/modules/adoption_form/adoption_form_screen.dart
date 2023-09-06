@@ -25,7 +25,10 @@ class _AdoptionFormScreenState extends State<AdoptionFormScreen> {
       appBar: showDrawer
           ? PreferredSize(
               preferredSize: const Size.fromHeight(kToolbarHeight),
-              child: ResponsiveNavBar(scaffoldKey: _scaffoldKey))
+              child: ResponsiveNavBar(
+                scaffoldKey: _scaffoldKey,
+                dashboardName: 'Create Adoption Form',
+              ))
           : null,
       drawer: showDrawer
           ? Drawer(
@@ -37,13 +40,6 @@ class _AdoptionFormScreenState extends State<AdoptionFormScreen> {
           Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
             if (!showDrawer)
               NavigationSidebar(selectedIndex: -1, onItemSelected: (index) {}),
-            Expanded(
-                child: SingleChildScrollView(
-                    child: Column(children: [
-              Visibility(
-                  visible: screenWidth > 1100,
-                  child: const DashboardNavbar(dashboardName: 'Dashboard')),
-            ])))
           ]),
           Expanded(
             child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -82,9 +78,9 @@ class _AdoptionFormScreenState extends State<AdoptionFormScreen> {
                             )))),
                 const AdoptionForm(),
                 const AdoptionDescription()
-              ]))
+              ])),
             ]),
-          )
+          ),
         ],
       ),
     );

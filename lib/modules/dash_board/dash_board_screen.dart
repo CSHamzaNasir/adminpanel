@@ -26,7 +26,10 @@ class DashBoardScreenState extends State<DashBoardScreen> {
         appBar: showDrawer
             ? PreferredSize(
                 preferredSize: const Size.fromHeight(kToolbarHeight),
-                child: ResponsiveNavBar(scaffoldKey: _scaffoldKey))
+                child: ResponsiveNavBar(
+                  scaffoldKey: _scaffoldKey,
+                  dashboardName: 'Dashboard',
+                ))
             : null,
         drawer: showDrawer
             ? Drawer(

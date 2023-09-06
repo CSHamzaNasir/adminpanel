@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 class ResponsiveNavBar extends StatefulWidget {
+  final String dashboardName;
   const ResponsiveNavBar({
     Key? key,
     required GlobalKey<ScaffoldState> scaffoldKey,
+    required this.dashboardName,
   })  : _scaffoldKey = scaffoldKey,
         super(key: key);
 
@@ -30,7 +32,7 @@ class _ResponsiveNavBarState extends State<ResponsiveNavBar> {
       title: Row(
         children: [
           Text(
-            'Dashboard',
+            widget.dashboardName,
             style: TextStyle(
                 fontSize: dashboardTextSize,
                 fontWeight: FontWeight.w600,
