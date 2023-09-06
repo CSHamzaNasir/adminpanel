@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../core/auth/screen/login_screen.dart';
-import '../core/widgets/navigation_slidebar.dart';
 
 class TabletBody extends StatefulWidget {
   const TabletBody({Key? key}) : super(key: key);
@@ -13,8 +12,8 @@ class TabletBody extends StatefulWidget {
 class TabletBodyState extends State<TabletBody> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: const LoginScreen(),
+    return const Scaffold(
+      body: LoginScreen(),
     );
   }
 }

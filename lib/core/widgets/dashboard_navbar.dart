@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 
-class DashboardNavbar extends StatelessWidget {
+class DashboardNavbar extends StatefulWidget {
   final String dashboardName;
 
   const DashboardNavbar({
     Key? key,
     required this.dashboardName,
   }) : super(key: key);
+
+  @override
+  State<DashboardNavbar> createState() => _DashboardNavbarState();
+}
+
+class _DashboardNavbarState extends State<DashboardNavbar> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,7 +33,7 @@ class DashboardNavbar extends StatelessWidget {
           child: Row(
             children: [
               Text(
-                dashboardName,
+                widget.dashboardName,
                 style: const TextStyle(
                   color: Color(0xff18181B),
                   fontSize: 24,

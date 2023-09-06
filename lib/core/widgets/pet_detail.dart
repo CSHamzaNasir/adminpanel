@@ -55,7 +55,8 @@ class PetDetail extends StatelessWidget {
                                 child: Image.network(data['img']))),
                         const SizedBox(width: 16),
                         Padding(
-                            padding: const EdgeInsets.only(top: 16, bottom: 18),
+                            padding:
+                                const EdgeInsets.only(top: 16, bottom: 18),
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -104,7 +105,8 @@ class PetDetail extends StatelessWidget {
                               child: Container(
                                   decoration: BoxDecoration(
                                       border: Border.all(
-                                          width: 1, color: Colors.transparent),
+                                          width: 1,
+                                          color: Colors.transparent),
                                       color: data['borderColor'],
                                       borderRadius: const BorderRadius.all(
                                           Radius.circular(16))),

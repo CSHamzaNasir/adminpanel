@@ -17,7 +17,7 @@ class AdoptionForm extends StatelessWidget {
           const SizedBox(width: 15),
           _buildFormColumn(trying1),
           const SizedBox(width: 20),
-          _buildImageSection(),
+          _buildImageSection(context),
         ],
       ),
     );
@@ -40,7 +40,20 @@ class AdoptionForm extends StatelessWidget {
     );
   }
 
-  Widget _buildImageSection() {
+  Widget _buildImageSection(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double imgWidth;
+    double imgHeight;
+    if (screenWidth < 700) {
+      imgWidth = 30.0;
+      imgHeight = 30.0;
+    } else if (screenWidth < 1100) {
+      imgWidth = 60.0;
+      imgHeight = 60.0;
+    } else {
+      imgWidth = 81.0;
+      imgHeight = 85.0;
+    }
     final picker = ImagePicker();
     return Expanded(
       child: Column(
@@ -82,8 +95,8 @@ class AdoptionForm extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: SizedBox(
-                  height: 81,
-                  width: 85,
+                  height: imgHeight,
+                  width: imgWidth,
                   child: Image.network(
                     'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTAAovymF8hElroxcQ4ZOjKGeTmA4ZoKyNKN-rKYRzVlfU1AXHz',
                     fit: BoxFit.cover,
@@ -94,8 +107,8 @@ class AdoptionForm extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: SizedBox(
-                  height: 81,
-                  width: 85,
+                  height: imgHeight,
+                  width: imgWidth,
                   child: Image.network(
                     'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSmAMEpcJ_RfvNOUngEl0wJYBKyxIIWVveurVvTbxdUtmwnRpgQ',
                     fit: BoxFit.cover,
@@ -117,8 +130,8 @@ class AdoptionForm extends StatelessWidget {
                       color: const Color(0xffE5E7EB),
                     ),
                   ),
-                  height: 81,
-                  width: 85,
+                  height: imgHeight,
+                  width: imgWidth,
                   padding: const EdgeInsets.all(2),
                   child: const Icon(Icons.add),
                 ),

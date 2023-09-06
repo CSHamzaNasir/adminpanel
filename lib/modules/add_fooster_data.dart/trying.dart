@@ -232,43 +232,40 @@ class DataEntryScreenState extends State<DataEntryScreen> {
                         final fooster = createFoosterData[index];
                         return ListTile(
                           subtitle: Card(
-                            child: Container(
-                              margin: const EdgeInsets.all(18.0),
-                              padding: const EdgeInsets.all(18.0),
-                              child: Row(
-                                children: [
-                                  CircleAvatar(child: Text(fooster.patientNo)),
-                                  const SizedBox(width: 12),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text('Sex: ${fooster.sex}'),
-                                      Text('Color: ${fooster.color}'),
-                                      Text('Source: ${fooster.source}'),
-                                      Text('Difficulty: ${fooster.difficulty}'),
-                                    ],
-                                  ),
-                                  const Spacer(),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text('Species: ${fooster.species}'),
-                                      Text('Age: ${fooster.age}'),
-                                    ],
-                                  ),
-                                  const Spacer(),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text('Type: ${fooster.type}'),
-                                      Text(
-                                          'FoosterPeriod: ${fooster.foosterPeriod}'),
-                                    ],
-                                  ),
-                                ],
+                            child: Expanded(
+                              child: Container(
+                                margin: const EdgeInsets.all(16.0),
+                                padding: const EdgeInsets.all(16.0),
+                                child: Row(
+                                  children: [
+                                    CircleAvatar(
+                                        child: Text(fooster.patientNo)),
+                                    const SizedBox(width: 6),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text('Color: ${fooster.color}'),
+                                        Text('Source: ${fooster.source}'),
+                                        Text(
+                                            'FoosterPeriod: ${fooster.foosterPeriod}'),
+                                        Text(
+                                            'Difficulty: ${fooster.difficulty}'),
+                                        Text('Species: ${fooster.species}'),
+                                        Text('Age: ${fooster.age}'),
+                                      ],
+                                    ),
+                                    const Spacer(),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text('Type: ${fooster.type}'),
+                                        Text('Sex: ${fooster.sex}'),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -299,7 +296,7 @@ class DataEntryScreenState extends State<DataEntryScreen> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Sex: ${savedDataFields[4]}',
+                                          'Fooster Period: ${savedDataFields[3]}',
                                           style: const TextStyle(
                                               color: Colors.white),
                                         ),
@@ -318,13 +315,6 @@ class DataEntryScreenState extends State<DataEntryScreen> {
                                           style: const TextStyle(
                                               color: Colors.white),
                                         ),
-                                      ],
-                                    ),
-                                    const Spacer(),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
                                         Text(
                                           'Age: ${savedDataFields[0]}',
                                           style: const TextStyle(
@@ -348,7 +338,7 @@ class DataEntryScreenState extends State<DataEntryScreen> {
                                               color: Colors.white),
                                         ),
                                         Text(
-                                          'Fooster Period: ${savedDataFields[3]}',
+                                          'Sex: ${savedDataFields[4]}',
                                           style: const TextStyle(
                                               color: Colors.white),
                                         ),

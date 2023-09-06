@@ -4,6 +4,7 @@ import '../../core/widgets/adoption_description.dart';
 import '../../core/widgets/adoption_form.dart';
 import '../../core/widgets/dashboard_navbar.dart';
 import '../../core/widgets/navigation_slidebar.dart';
+import '../../core/widgets/responsive_navbar.dart';
 
 class AdoptionFormScreen extends StatefulWidget {
   const AdoptionFormScreen({Key? key}) : super(key: key);
@@ -13,39 +14,79 @@ class AdoptionFormScreen extends StatefulWidget {
 }
 
 class _AdoptionFormScreenState extends State<AdoptionFormScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    final bool showDrawer = screenWidth < 1100 || screenWidth < 700;
     return Scaffold(
-        body: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      NavigationSidebar(selectedIndex: -1, onItemSelected: (index) {}),
-      Expanded(
-          child: ListView(children: [
-        Container(
-            decoration: const BoxDecoration(color: Colors.white, boxShadow: [
-              BoxShadow(
-                  color: Color.fromARGB(255, 219, 215, 215),
-                  spreadRadius: 0.3,
-                  blurRadius: 1,
-                  offset: Offset(2, 2))
+      key: _scaffoldKey,
+      appBar: showDrawer
+          ? PreferredSize(
+              preferredSize: const Size.fromHeight(kToolbarHeight),
+              child: ResponsiveNavBar(scaffoldKey: _scaffoldKey))
+          : null,
+      drawer: showDrawer
+          ? Drawer(
+              child: NavigationSidebar(
+                  selectedIndex: -1, onItemSelected: (index) {}))
+          : null,
+      body: Column(
+        children: [
+          Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            if (!showDrawer)
+              NavigationSidebar(selectedIndex: -1, onItemSelected: (index) {}),
+            Expanded(
+                child: SingleChildScrollView(
+                    child: Column(children: [
+              Visibility(
+                  visible: screenWidth > 1100,
+                  child: const DashboardNavbar(dashboardName: 'Dashboard')),
+            ])))
+          ]),
+          Expanded(
+            child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Visibility(
+                  visible: screenWidth > 1100,
+                  child: NavigationSidebar(
+                      selectedIndex: -1, onItemSelected: (index) {})),
+              Expanded(
+                  child: ListView(children: [
+                Visibility(
+                  visible: screenWidth > 1100,
+                  child: Container(
+                      decoration:
+                          const BoxDecoration(color: Colors.white, boxShadow: [
+                        BoxShadow(
+                            color: Color.fromARGB(255, 219, 215, 215),
+                            spreadRadius: 0.3,
+                            blurRadius: 1,
+                            offset: Offset(2, 2))
+                      ]),
+                      height: 64,
+                      child: const Padding(
+                          padding: EdgeInsets.only(left: 40),
+                          child: DashboardNavbar(
+                            dashboardName: 'Create Adoption Form',
+                          ))),
+                ),
+                const Padding(
+                    padding: EdgeInsets.only(left: 55, top: 40),
+                    child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text('Fill this form',
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w600,
+                            )))),
+                const AdoptionForm(),
+                const AdoptionDescription()
+              ]))
             ]),
-            height: 64,
-            child: const Padding(
-                padding: EdgeInsets.only(left: 40),
-                child: DashboardNavbar(
-                  dashboardName: 'Create Adoption Form',
-                ))),
-        const Padding(
-            padding: EdgeInsets.only(left: 55, top: 40),
-            child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text('Fill this form',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w600,
-                    )))),
-        const AdoptionForm(),
-        const AdoptionDescription()
-      ]))
-    ]));
+          )
+        ],
+      ),
+    );
   }
 }

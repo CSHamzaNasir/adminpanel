@@ -1,3 +1,4 @@
+import 'package:enuadminpannel/core/auth/screen/login_screen.dart';
 import 'package:flutter/material.dart';
 
 class DesktopBody extends StatefulWidget {
@@ -10,6 +11,6 @@ class DesktopBody extends StatefulWidget {
 class DesktopBodyState extends State<DesktopBody> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return const LoginScreen();
   }
 }
