@@ -29,8 +29,9 @@ class _DashboardNavbarState extends State<DashboardNavbar> {
         height: 64,
         color: Colors.white,
         child: Padding(
-          padding: const EdgeInsets.only(left: 7, right: 40),
-          child: Row(
+          padding: const EdgeInsets.only(left: 40, right: 40),
+          child: Flex(
+            direction: Axis.horizontal,
             children: [
               Text(
                 widget.dashboardName,

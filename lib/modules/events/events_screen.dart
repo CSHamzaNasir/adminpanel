@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../core/widgets/dashboard_navbar.dart';
 import '../../core/widgets/navigation_slidebar.dart';
 import '../../core/widgets/past_events.dart';
+import '../../core/widgets/responsive_navbar.dart';
 import '../../core/widgets/upcoming_events.dart';
 
 class EventsScreen extends StatefulWidget {
@@ -12,6 +13,8 @@ class EventsScreen extends StatefulWidget {
 }
 
 class _EventsScreenState extends State<EventsScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   DateTime selectedDate = DateTime.now();
 
   Future<void> _selectDate(BuildContext context) async {
@@ -29,6 +32,20 @@ class _EventsScreenState extends State<EventsScreen> {
   }
 
   Future<void> showDialogue(BuildContext context) async {
+    final screenWidth = MediaQuery.of(context).size.width;
+    double leftPadding;
+    double textSize;
+    if (screenWidth < 700) {
+      leftPadding = 1.0;
+      textSize = 15.0;
+    } else if (screenWidth < 1100) {
+      leftPadding = 75.0;
+      textSize = 24.0;
+    } else {
+      leftPadding = 75.0;
+      textSize = 24.0;
+    }
+
     final inputDecorations = [
       const InputDecoration(
         labelText: "Type Event Name",
@@ -44,17 +61,17 @@ class _EventsScreenState extends State<EventsScreen> {
             width: 675,
             height: 449,
             child: Padding(
-              padding: const EdgeInsets.only(left: 75, right: 76, top: 30),
+              padding: EdgeInsets.only(left: leftPadding, right: 76, top: 30),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
                       const Spacer(),
-                      const Text(
+                      Text(
                         "New SPCA Event",
                         style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.w600),
+                            fontSize: textSize, fontWeight: FontWeight.w600),
                       ),
                       const Spacer(),
                       GestureDetector(
@@ -176,25 +193,70 @@ class _EventsScreenState extends State<EventsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    double textSize;
+    double buttonWidth;
+    double buttonHeight;
+    if (screenWidth < 700) {
+      textSize = 13.0;
+      buttonWidth = 100.0;
+      buttonHeight = 20.0;
+    } else if (screenWidth < 1100) {
+      textSize = 16.0;
+      buttonWidth = 110.0;
+      buttonHeight = 30.0;
+    } else {
+      textSize = 24.0;
+      buttonWidth = 143.0;
+      buttonHeight = 42.0;
+    }
+
+    final bool showDrawer = screenWidth < 1100 || screenWidth < 700;
     return Scaffold(
+      key: _scaffoldKey,
+      appBar: showDrawer
+          ? PreferredSize(
+              preferredSize: const Size.fromHeight(kToolbarHeight),
+              child: ResponsiveNavBar(
+                scaffoldKey: _scaffoldKey,
+                dashboardName: 'Events',
+              ),
+            )
+          : null,
+      drawer: showDrawer
+          ? Drawer(
+              child: NavigationSidebar(
+                selectedIndex: -1,
+                onItemSelected: (index) {},
+              ),
+            )
+          : null,
       body: Column(
         children: [
           Expanded(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                NavigationSidebar(
-                    selectedIndex: -1, onItemSelected: (index) {}),
+                Visibility(
+                  visible: screenWidth > 1100,
+                  child: NavigationSidebar(
+                    selectedIndex: -1,
+                    onItemSelected: (index) {},
+                  ),
+                ),
                 Expanded(
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        Container(
-                          decoration: const BoxDecoration(),
-                          height: 65,
-                          width: double.infinity,
-                          child: const DashboardNavbar(
-                              dashboardName: '     Events'),
+                        Visibility(
+                          visible: screenWidth > 1100,
+                          child: Container(
+                            decoration: const BoxDecoration(),
+                            height: 65,
+                            width: double.infinity,
+                            child: const DashboardNavbar(
+                                dashboardName: '     Events'),
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
@@ -204,18 +266,18 @@ class _EventsScreenState extends State<EventsScreen> {
                           ),
                           child: Row(
                             children: [
-                              const Text(
+                              Text(
                                 'Upcoming Events',
                                 style: TextStyle(
-                                  fontSize: 24,
+                                  fontSize: textSize,
                                   fontWeight: FontWeight.w600,
-                                  color: Color(0xff333333),
+                                  color: const Color(0xff333333),
                                 ),
                               ),
                               const Spacer(),
                               SizedBox(
-                                width: 143,
-                                height: 42,
+                                width: buttonWidth,
+                                height: buttonHeight,
                                 child: ElevatedButton(
                                   onPressed: () {
                                     showDialogue(context);
@@ -230,8 +292,8 @@ class _EventsScreenState extends State<EventsScreen> {
                                       left: 5,
                                       right: 12,
                                     ),
-                                    textStyle: const TextStyle(
-                                      fontSize: 18,
+                                    textStyle: TextStyle(
+                                      fontSize: textSize,
                                       fontWeight: FontWeight.w400,
                                     ),
                                     shape: RoundedRectangleBorder(

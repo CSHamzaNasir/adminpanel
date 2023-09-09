@@ -7,11 +7,40 @@ class RightChat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double imgHeight;
+    double imgWidth;
+    double boxHeight;
+    double boxWidth;
+    double textSize;
+    double rightPadding;
+    if (screenWidth < 700) {
+      imgHeight = 20.0;
+      imgWidth = 20.0;
+      boxHeight = 20.0;
+      boxWidth = 120.0;
+      textSize = 8.0;
+      rightPadding = 1.0;
+    } else if (screenWidth < 1100) {
+      imgHeight = 40.0;
+      imgWidth = 40.0;
+      boxHeight = 40.0;
+      boxWidth = 200.0;
+      textSize = 12.0;
+      rightPadding = 13.0;
+    } else {
+      imgHeight = 40.0;
+      imgWidth = 40.0;
+      boxHeight = 50.0;
+      boxWidth = 232.0;
+      textSize = 14.0;
+      rightPadding = 15.0;
+    }
     return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 50, left: 15),
+          padding: EdgeInsets.only(top: 50, left: rightPadding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -22,24 +51,24 @@ class RightChat extends StatelessWidget {
                     topLeft: Radius.circular(8)),
                 child: Container(
                   color: const Color(0xffF9FAFB),
-                  height: 50,
-                  width: 232,
-                  child: const Center(
+                  height: boxHeight,
+                  width: boxWidth,
+                  child: Center(
                     child: Text('Buddy / Mongrel is 1 year old.',
                         style: TextStyle(
-                            fontSize: 14,
+                            fontSize: textSize,
                             fontWeight: FontWeight.w400,
-                            color: Color(0xff6B7280))),
+                            color: const Color(0xff6B7280))),
                   ),
                 ),
               ),
               const SizedBox(height: 10),
-              const Text(
+              Text(
                 '10:00 Am',
                 style: TextStyle(
-                    fontSize: 12,
+                    fontSize: textSize,
                     fontWeight: FontWeight.w400,
-                    color: Color(0xff71717A)),
+                    color: const Color(0xff71717A)),
               ),
             ],
           ),
@@ -50,8 +79,8 @@ class RightChat extends StatelessWidget {
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.blue, width: 2),
                   borderRadius: BorderRadius.circular(50)),
-              height: 40,
-              width: 40,
+              height: imgHeight,
+              width: imgWidth,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(50),
                 child: Image.network(

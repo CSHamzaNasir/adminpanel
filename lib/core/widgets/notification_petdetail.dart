@@ -6,6 +6,19 @@ class NotifiicationPetDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double leftPadding;
+    // double rightPadding;
+    if (screenWidth < 700) {
+      leftPadding = 50.0;
+      // imgHeight = 30.0;
+    } else if (screenWidth < 1100) {
+      leftPadding = 100.0;
+      // imgHeight = 60.0;
+    } else {
+      leftPadding = 350.0;
+      // imgHeight = 85.0;
+    }
     return Padding(
         padding: const EdgeInsets.only(left: 30, right: 30),
         child: Row(children: [
@@ -78,8 +91,8 @@ class NotifiicationPetDetail extends StatelessWidget {
                         alignment: Alignment.center,
                         child: Row(children: [
                           Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 350, top: 26, bottom: 27),
+                              padding: EdgeInsets.only(
+                                  left: leftPadding, top: 26, bottom: 27),
                               child: Column(children: [
                                 Text(
                                   data['day'],

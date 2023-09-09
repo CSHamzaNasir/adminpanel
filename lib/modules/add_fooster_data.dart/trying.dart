@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../core/widgets/navigation_slidebar.dart';
 import '../../core/widgets/responsive_navbar.dart';
 import 'add_fooster_data.dart';
@@ -99,36 +98,34 @@ class DataEntryScreenState extends State<DataEntryScreen> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final bool showDrawer = screenWidth < 1100 || screenWidth < 700;
-
     return Scaffold(
       key: _scaffoldKey,
-      appBar: showDrawer
-          ? PreferredSize(
-              preferredSize: const Size.fromHeight(kToolbarHeight),
-              child: ResponsiveNavBar(
-                scaffoldKey: _scaffoldKey,
-                dashboardName: 'Add Fooster',
-              ))
-          : null,
-      drawer: showDrawer
-          ? Drawer(
-              child: NavigationSidebar(
-                  selectedIndex: -1, onItemSelected: (index) {}))
-          : null,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: Visibility(
+          visible: screenWidth < 1100,
+          child: ResponsiveNavBar(
+            scaffoldKey: _scaffoldKey,
+            dashboardName: 'Create Fooster',
+          ),
+        ),
+      ),
+      drawer: Drawer(
+        child: NavigationSidebar(
+          selectedIndex: -1,
+          onItemSelected: (index) {},
+        ),
+      ),
       body: Column(
         children: [
-          Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            if (!showDrawer)
-              NavigationSidebar(selectedIndex: -1, onItemSelected: (index) {}),
-          ]),
           Expanded(
             child: Row(
               children: [
                 Visibility(
-                    visible: screenWidth > 1100,
-                    child: NavigationSidebar(
-                        selectedIndex: -1, onItemSelected: (index) {})),
+                  visible: screenWidth > 1100,
+                  child: NavigationSidebar(
+                      selectedIndex: -1, onItemSelected: (index) {}),
+                ),
                 Expanded(
                   child: SingleChildScrollView(
                     child: Padding(
@@ -260,49 +257,45 @@ class DataEntryScreenState extends State<DataEntryScreen> {
                             itemCount: createFoosterData.length,
                             itemBuilder: (context, index) {
                               final fooster = createFoosterData[index];
-                              return ListTile(
-                                subtitle: Card(
-                                  child: Expanded(
-                                    child: Container(
-                                      margin: const EdgeInsets.all(16.0),
-                                      padding: const EdgeInsets.all(16.0),
-                                      child: Row(
+                              return Card(
+                                child: Container(
+                                  margin: const EdgeInsets.all(16.0),
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Row(
+                                    children: [
+                                      CircleAvatar(
+                                          child: Text(fooster.patientNo)),
+                                      const SizedBox(width: 6),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
-                                          CircleAvatar(
-                                              child: Text(fooster.patientNo)),
-                                          const SizedBox(width: 6),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text('Color: ${fooster.color}'),
-                                              Text('Source: ${fooster.source}'),
-                                              Text(
-                                                  'FoosterPeriod: ${fooster.foosterPeriod}'),
-                                              Text(
-                                                  'Difficulty: ${fooster.difficulty}'),
-                                              Text(
-                                                  'Species: ${fooster.species}'),
-                                              Text('Age: ${fooster.age}'),
-                                            ],
-                                          ),
-                                          const Spacer(),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text('Type: ${fooster.type}'),
-                                              Text('Sex: ${fooster.sex}'),
-                                            ],
-                                          ),
+                                          Text('Color: ${fooster.color}'),
+                                          Text('Source: ${fooster.source}'),
+                                          Text(
+                                              'FoosterPeriod: ${fooster.foosterPeriod}'),
+                                          Text(
+                                              'Difficulty: ${fooster.difficulty}'),
+                                          Text('Species: ${fooster.species}'),
+                                          Text('Age: ${fooster.age}'),
                                         ],
                                       ),
-                                    ),
+                                      const Spacer(),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text('Type: ${fooster.type}'),
+                                          Text('Sex: ${fooster.sex}'),
+                                        ],
+                                      ),
+                                    ],
                                   ),
                                 ),
                               );
                             },
                           ),
+
                           // Display the saved data
                           ListView.builder(
                             shrinkWrap: true,

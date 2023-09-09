@@ -18,54 +18,97 @@ class MessageItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double leftPadding;
+    double rightPadding;
+    double textSize;
+    double textSizeType;
+    double imgHeight;
+    double imgWidth;
+    double times;
+
+    if (screenWidth < 700) {
+      leftPadding = 1.0;
+      rightPadding = 1.0;
+      textSize = 10.0;
+      textSizeType = 8.0;
+      imgHeight = 20.0;
+      imgWidth = 20.0;
+      times = 6.0;
+    } else if (screenWidth < 1100) {
+      leftPadding = 12.0;
+      rightPadding = 30.0;
+      textSize = 10.0;
+      textSizeType = 12.0;
+      imgHeight = 40.0;
+      imgWidth = 40.0;
+      times = 8.0;
+    } else {
+      leftPadding = 24.0;
+      rightPadding = 41.0;
+      textSize = 18.0;
+      textSizeType = 14.0;
+      imgHeight = 80.0;
+      imgWidth = 80.0;
+      times = 12.0;
+    }
+
     return Padding(
-      padding: const EdgeInsets.only(left: 24, right: 41),
+      padding: EdgeInsets.only(left: leftPadding, right: rightPadding),
       child: Row(
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(50),
             child: SizedBox(
-                height: 80,
-                width: 80,
-                child: Image.network(
-                  img,
-                  fit: BoxFit.cover,
-                )),
+              height: imgHeight,
+              width: imgWidth,
+              child: Image.network(
+                img,
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
-          const SizedBox(width: 20),
+          Visibility(
+            visible: screenWidth > 1100,
+            child: const SizedBox(width: 20),
+          ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 type,
-                style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: Color(0xff6B7280)),
+                style: TextStyle(
+                  fontSize: textSizeType,
+                  fontWeight: FontWeight.w400,
+                  color: const Color(0xff6B7280),
+                ),
               ),
               Text(
                 name,
-                style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xff111827)),
+                style: TextStyle(
+                  fontSize: textSize,
+                  fontWeight: FontWeight.w500,
+                  color: const Color(0xff111827),
+                ),
               ),
               Text(
                 old,
-                style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xff4B5563)),
+                style: TextStyle(
+                  fontSize: textSizeType,
+                  fontWeight: FontWeight.w500,
+                  color: const Color(0xff4B5563),
+                ),
               ),
             ],
           ),
           const Spacer(),
           Text(
             time,
-            style: const TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                color: Color(0xff71717A)),
+            style: TextStyle(
+              fontSize: times,
+              fontWeight: FontWeight.w400,
+              color: const Color(0xff71717A),
+            ),
           ),
         ],
       ),

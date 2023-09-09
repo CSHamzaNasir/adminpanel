@@ -45,9 +45,42 @@ class _ChatDetailsState extends State<ChatDetails> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double imgHeight;
+    double imgWidth;
+    double textSize;
+    double leftPadding;
+    double rightPadding;
+    double topPadding;
+    double iconSize;
+    if (screenWidth < 700) {
+      imgHeight = 20.0;
+      imgWidth = 20.0;
+      textSize = 14.0;
+      leftPadding = 4.0;
+      rightPadding = 15.0;
+      topPadding = 4.0;
+      iconSize = 10.0;
+    } else if (screenWidth < 1100) {
+      imgHeight = 40.0;
+      imgWidth = 40.0;
+      textSize = 16.0;
+      leftPadding = 6.0;
+      rightPadding = 25.0;
+      topPadding = 7.0;
+      iconSize = 17.0;
+    } else {
+      imgHeight = 40.0;
+      imgWidth = 40.0;
+      textSize = 18.0;
+      leftPadding = 7.0;
+      rightPadding = 30.0;
+      topPadding = 8.0;
+      iconSize = 20.0;
+    }
     return Expanded(
       child: Padding(
-        padding: const EdgeInsets.only(right: 30, left: 15),
+        padding: EdgeInsets.only(right: rightPadding),
         child: Container(
           height: 875,
           color: Colors.white,
@@ -61,22 +94,23 @@ class _ChatDetailsState extends State<ChatDetails> {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(50),
                       child: SizedBox(
-                        height: 40,
-                        width: 40,
+                        height: imgHeight,
+                        width: imgWidth,
                         child: Image.network(
                           'https://images.unsplash.com/photo-1510520434124-5bc7e642b61d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80',
                           fit: BoxFit.cover,
                         ),
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 7, top: 8),
+                    Padding(
+                      padding:
+                          EdgeInsets.only(left: leftPadding, top: topPadding),
                       child: Text(
                         'Rebecca Nicholas',
                         style: TextStyle(
-                            fontSize: 18,
+                            fontSize: textSize,
                             fontWeight: FontWeight.w500,
-                            color: Color(0xff111827)),
+                            color: const Color(0xff111827)),
                       ),
                     ),
                     const Spacer(),
@@ -90,7 +124,9 @@ class _ChatDetailsState extends State<ChatDetails> {
                         child: const Icon(Icons.more_vert),
                       ),
                     ),
-                    const SizedBox(width: 15),
+                    Visibility(
+                        visible: screenWidth > 1100,
+                        child: const SizedBox(width: 15)),
                   ],
                 ),
                 const SizedBox(height: 40),
@@ -107,7 +143,7 @@ class _ChatDetailsState extends State<ChatDetails> {
                     Expanded(child: Divider()),
                   ],
                 ),
-                const Spacer(),
+                Visibility(visible: screenWidth > 1100, child: const Spacer()),
                 const LeftChat(),
                 const RightChat(),
                 const SizedBox(height: 30),
@@ -123,9 +159,10 @@ class _ChatDetailsState extends State<ChatDetails> {
                             color: const Color(0xff0566BD),
                             border: Border.all(color: const Color(0xff0566BD)),
                           ),
-                          child: const Icon(
+                          child: Icon(
                             Icons.send,
-                            color: Color(0xffFFFFFF),
+                            size: iconSize,
+                            color: const Color(0xffFFFFFF),
                           ),
                         ),
                       ),

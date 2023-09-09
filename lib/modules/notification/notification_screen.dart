@@ -4,6 +4,7 @@ import '../../core/widgets/dashboard_navbar.dart';
 import '../../core/widgets/navigation_slidebar.dart';
 import '../../core/widgets/notification_petdetail.dart';
 import '../../core/widgets/checkbox_widget.dart';
+import '../../core/widgets/responsive_navbar.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({Key? key}) : super(key: key);
@@ -13,6 +14,7 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   late String _selectedGender;
   final TextEditingController _textFieldController = TextEditingController();
 
@@ -57,19 +59,49 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    final bool showDrawer = screenWidth < 1100 || screenWidth < 700;
+
     return Scaffold(
+      key: _scaffoldKey,
+      appBar: showDrawer
+          ? PreferredSize(
+              preferredSize: const Size.fromHeight(kToolbarHeight),
+              child: ResponsiveNavBar(
+                scaffoldKey: _scaffoldKey,
+                dashboardName: 'Create Adoption Form',
+              ),
+            )
+          : null,
+      drawer: showDrawer
+          ? Drawer(
+              child: Visibility(
+                visible: screenWidth < 1100,
+                child: NavigationSidebar(
+                  selectedIndex: -1,
+                  onItemSelected: (index) {},
+                ),
+              ),
+            )
+          : null,
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          NavigationSidebar(
-            selectedIndex: -1,
-            onItemSelected: (index) {},
+          Visibility(
+            visible: screenWidth > 1100,
+            child: NavigationSidebar(
+              selectedIndex: -1,
+              onItemSelected: (index) {},
+            ),
           ),
           Expanded(
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  const DashboardNavbar(dashboardName: 'Dashboard'),
+                  Visibility(
+                      visible: screenWidth > 1100,
+                      child: const DashboardNavbar(dashboardName: 'Dashboard')),
                   _buildNotificationHeader(),
                   const NotifiicationPetDetail(),
                 ],

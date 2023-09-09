@@ -8,21 +8,8 @@ class AdoptionForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    final double leftPadding;
-    final double rightPadding;
-    if (screenWidth < 700) {
-      leftPadding = 10.0;
-      rightPadding = 11.0;
-    } else if (screenWidth < 1100) {
-      leftPadding = 40.0;
-      rightPadding = 40.0;
-    } else {
-      leftPadding = 55.0;
-      rightPadding = 55.0;
-    }
     return Padding(
-      padding: EdgeInsets.only(left: leftPadding, right: rightPadding, top: 40),
+      padding: const EdgeInsets.only(left: 55, right: 55),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -145,7 +132,6 @@ class AdoptionForm extends StatelessWidget {
                   ),
                   height: imgHeight,
                   width: imgWidth,
-                  padding: const EdgeInsets.all(2),
                   child: const Icon(Icons.add),
                 ),
               ),
