@@ -8,21 +8,18 @@ class NotifiicationPetDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double leftPadding;
-    // double rightPadding;
     if (screenWidth < 700) {
       leftPadding = 50.0;
-      // imgHeight = 30.0;
     } else if (screenWidth < 1100) {
       leftPadding = 100.0;
-      // imgHeight = 60.0;
     } else {
       leftPadding = 350.0;
-      // imgHeight = 85.0;
     }
     return Padding(
         padding: const EdgeInsets.only(left: 30, right: 30),
-        child: Row(children: [
-          DataTable(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: DataTable(
             dataRowMinHeight: 93,
             dataRowMaxHeight: 93,
             columns: const [
@@ -118,7 +115,7 @@ class NotifiicationPetDetail extends StatelessWidget {
                         ])))
                   ]);
             }).toList(),
-          )
-        ]));
+          ),
+        ));
   }
 }

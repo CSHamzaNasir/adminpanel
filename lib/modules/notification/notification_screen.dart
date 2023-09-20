@@ -70,7 +70,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
               preferredSize: const Size.fromHeight(kToolbarHeight),
               child: ResponsiveNavBar(
                 scaffoldKey: _scaffoldKey,
-                dashboardName: 'Create Adoption Form',
+                dashboardName: 'Dashboard',
               ),
             )
           : null,
@@ -134,9 +134,22 @@ class _NotificationScreenState extends State<NotificationScreen> {
   }
 
   Widget _buildSendNotificationButton() {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double buttonHeight;
+    double buttonWidth;
+    if (screenWidth < 700) {
+      buttonHeight = 25.0;
+      buttonWidth = 150.0;
+    } else if (screenWidth < 1100) {
+      buttonHeight = 35.0;
+      buttonWidth = 150.0;
+    } else {
+      buttonHeight = 52.0;
+      buttonWidth = 211.0;
+    }
     return SizedBox(
-      width: 211,
-      height: 52,
+      width: buttonWidth,
+      height: buttonHeight,
       child: ElevatedButton(
         onPressed: () {
           _showNotificationDialog(context);

@@ -29,7 +29,7 @@ class _AdoptionFormScreenState extends State<AdoptionFormScreen> {
               preferredSize: const Size.fromHeight(kToolbarHeight),
               child: ResponsiveNavBar(
                 scaffoldKey: _scaffoldKey,
-                dashboardName: 'Create Adoption Form',
+                dashboardName: 'Adoption Form',
               ),
             )
           : null,
